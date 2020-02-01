@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final double MIN_OPENGL_VERSION = 3.0;
     private ArFragment arFragment;
-    private ModelRenderable andyRenderable;
+    private ModelRenderable tireRenderable;
+
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         ModelRenderable.builder()
                 .setSource(this, R.raw.reifen)
                 .build()
-                .thenAccept(renderable -> andyRenderable = renderable)
+                .thenAccept(renderable -> tireRenderable = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast toast =
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         });
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
-                    if (andyRenderable == null) {
+                    if (tireRenderable == null) {
                         return;
                     }
 
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
                     TransformableNode andy = new TransformableNode(arFragment.getTransformationSystem());
                     andy.setParent(anchorNode);
-                    andy.setRenderable(andyRenderable);
+                    andy.setRenderable(tireRenderable);
                     andy.select();
                 });
     }
