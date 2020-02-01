@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.ar.sceneform.plugin'
 
 android {
     compileSdkVersion 29
@@ -39,3 +40,19 @@ android {
         implementation 'com.google.ar.sceneform:core:1.14.0'
     }
 }
+
+
+sceneform.asset('src/sampledata/andy.obj',
+        'default',
+        'src/sampledata/andy.sfa',
+        'src/main/res/raw/andy')
+
+sceneform.asset('src/sampledata/Reifen.fbx',
+        'default',
+        'src/sampledata/Reifen.sfa',
+        'src/main/assets/Reifen')
+
+sceneform.asset('src/sampledata/reifen.fbx',
+        'default',
+        'src/sampledata/reifen.sfa',
+        'src/main/res/raw/reifen')
