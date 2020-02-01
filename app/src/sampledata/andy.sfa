@@ -34,8 +34,8 @@
       'Orientation',
     ],
     collision: {},
-    file: 'src/sampledata/andy.obj',
-    name: 'andy',
+    file: 'src/sampledata/Andy.obj',
+    name: 'Andy',
     recenter: 'root',
   },
   samplers: [

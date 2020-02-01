@@ -94,7 +94,7 @@
     file: 'src/sampledata/Reifen.fbx',
     name: 'Reifen',
     recenter: 'root',
-    scale: 0.92188099999999995,
+    scale: 0.12188099999999995,
   },
   version: '0.54:2',
 }
