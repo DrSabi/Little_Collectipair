@@ -56,3 +56,13 @@ sceneform.asset('src/sampledata/reifen.fbx',
         'default',
         'src/sampledata/reifen.sfa',
         'src/main/res/raw/reifen')
+
+sceneform.asset('src/sampledata/autokarosse.fbx',
+        'default',
+        'src/sampledata/autokarosse.sfa',
+        'src/main/res/raw/autokarosse')
+
+sceneform.asset('src/sampledata/autogesamt.fbx',
+        'default',
+        'src/sampledata/autogesamt.sfa',
+        'src/main/res/raw/autogesamt')
