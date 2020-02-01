@@ -6,10 +6,12 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.ColorSpace;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.widget.Toast;
@@ -30,13 +32,20 @@ import com.google.ar.sceneform.ux.TransformableNode;
 import android.os.Build.VERSION_CODES;
 import androidx.fragment.app.FragmentActivity;
 
+import java.util.concurrent.CompletableFuture;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final double MIN_OPENGL_VERSION = 3.0;
     private ArFragment arFragment;
-    private ModelRenderable andyRenderable;
+    private ModelRenderable tireRenderable;
+    private static final int RC_permissions = 0x123;
+    private GestureDetector gestureDetector;
+    private boolean hasFinishedLoading = false;
+    private boolean hasPlacedCarParts;
+
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +56,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ux);
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
 
-        ModelRenderable.builder()
+        CompletableFuture<ModelRenderable> autogesamt =
+                ModelRenderable.builder().setSource(this, Uri.parse("autogesamt.sfb")).build();
+        CompletableFuture<ModelRenderable> autokarosse =
+                ModelRenderable.builder().setSource(this, Uri.parse("autokarosse.sfb")).build();
+
+        /*ModelRenderable.builder()
                 .setSource(this, R.raw.reifen)
                 .build()
-                .thenAccept(renderable -> andyRenderable = renderable)
+                .thenAccept(renderable -> tireRenderable = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast toast =
@@ -58,20 +72,20 @@ public class MainActivity extends AppCompatActivity {
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
                             return null;
-                        });
+                        });*/
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
-                    if (andyRenderable == null) {
+                    if (tireRenderable == null) {
                         return;
                     }
 
                     Anchor anchor = hitResult.createAnchor();
                     AnchorNode anchorNode = new AnchorNode(anchor);
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
-                    TransformableNode andy = new TransformableNode(arFragment.getTransformationSystem());
-                    andy.setParent(anchorNode);
-                    andy.setRenderable(andyRenderable);
-                    andy.select();
+                    TransformableNode tire = new TransformableNode(arFragment.getTransformationSystem());
+                    tire.setParent(anchorNode);
+                    tire.setRenderable(tireRenderable);
+                    tire.select();
                 });
     }
 
