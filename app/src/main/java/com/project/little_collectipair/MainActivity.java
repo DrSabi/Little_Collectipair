@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.widget.Toast;
@@ -37,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
     private static final double MIN_OPENGL_VERSION = 3.0;
     private ArFragment arFragment;
     private ModelRenderable tireRenderable;
+    private static final int RC_permissions = 0x123;
+    private GestureDetector gestureDetector;
+    private boolean hasFinishedLoading = false;
+    private boolean hasPlacedCarParts;
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
