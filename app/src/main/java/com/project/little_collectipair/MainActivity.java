@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.ColorSpace;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,8 @@ import com.google.ar.sceneform.ux.TransformableNode;
 import android.os.Build.VERSION_CODES;
 import androidx.fragment.app.FragmentActivity;
 
+import java.util.concurrent.CompletableFuture;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,7 +56,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ux);
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
 
-        ModelRenderable.builder()
+        CompletableFuture<ModelRenderable> autogesamt =
+                ModelRenderable.builder().setSource(this, Uri.parse("autogesamt.sfb")).build();
+        CompletableFuture<ModelRenderable> autokarosse =
+                ModelRenderable.builder().setSource(this, Uri.parse("autokarosse.sfb")).build();
+
+        /*ModelRenderable.builder()
                 .setSource(this, R.raw.reifen)
                 .build()
                 .thenAccept(renderable -> tireRenderable = renderable)
@@ -64,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
                             return null;
-                        });
+                        });*/
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
                     if (tireRenderable == null) {
