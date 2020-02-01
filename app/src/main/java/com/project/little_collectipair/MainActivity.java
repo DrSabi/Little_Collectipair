@@ -82,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
                     Anchor anchor = hitResult.createAnchor();
                     AnchorNode anchorNode = new AnchorNode(anchor);
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
-                    TransformableNode andy = new TransformableNode(arFragment.getTransformationSystem());
-                    andy.setParent(anchorNode);
-                    andy.setRenderable(tireRenderable);
-                    andy.select();
+                    TransformableNode tire = new TransformableNode(arFragment.getTransformationSystem());
+                    tire.setParent(anchorNode);
+                    tire.setRenderable(tireRenderable);
+                    tire.select();
                 });
     }
 
